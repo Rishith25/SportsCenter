@@ -7,10 +7,12 @@ import { useLocation } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { ThemeContext } from "../../context/theme";
 import Preferences from "../../pages/preferences";
+import { Link } from "react-router-dom";
 
 const userNavigation = [
   { name: "Profile", href: "#" },
   { name: "Sign out", href: "/logout" },
+  { name: "Change Password", href: "/account/changePassword"}
 ];
 
 const navigation: any[] = [
@@ -181,6 +183,19 @@ export default function Appbar() {
                               >
                                 Sign Out
                               </a>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <Link
+                              to="changePassword"
+                              className={classNames(
+                                "block px-4 py-2 text-sm text-gray-700",
+                                { "bg-gray-100": active }
+                              )}
+                            >
+                              Change Password
+                            </Link>
                             )}
                           </Menu.Item>
                         </>

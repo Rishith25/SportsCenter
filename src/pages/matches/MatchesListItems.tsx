@@ -70,7 +70,7 @@ export default function MatchesListItems() {
 const ScoreCard = ({ matchID }: { matchID: number }) => {
   const [fetchScores, setFetchScores] = useState(false);
   const [match, setMatch] = useState<string>();
-  console.log(match);
+  // console.log(match);
   const fetchMatch = async () => {
     setFetchScores(true);
     await fetch(`${API_ENDPOINT}/matches/${matchID}`)
@@ -91,19 +91,21 @@ const ScoreCard = ({ matchID }: { matchID: number }) => {
       <Link to={`matches/${match.id}`}>
         <div className="flex py-4">
           {match.isRunning ? (
-            <>
+            
               <div className="flex items-center justify-between">
-                <div className="flex items-center py-3 text-sm text-gray-600 dark:text-gray-400">
-                  <CalendarDaysIcon className="h-4 w-4 dark:text-white" />
-                  <p className="px-1 dark:text-white">
-                    {new Date(match.endsAt).toLocaleDateString("en-US", {
-                      weekday: "short",
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <div className="flex items-center justify-end">
+                <div className="flex items-center py-3 text-sm text-gray-600 dark:text-gray-400 justify-between">
+                  <div className="flex items-center">
+                    <CalendarDaysIcon className="h-4 w-4 dark:text-white" />
+                    <div className="px-1 dark:text-white">
+                      {new Date(match.endsAt).toLocaleDateString("en-US", {
+                        weekday: "short",
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </div>
+                  </div>
+                  <div className="flex items-center">
                     <div className="flex items-center p-1 rounded-full bg-green-700 animate-pulse dark:bg-green-300" />
                     <p className="items-end px-1 text-green-700 text-sm dark:text-green-300">
                       Live now
@@ -111,7 +113,7 @@ const ScoreCard = ({ matchID }: { matchID: number }) => {
                   </div>
                 </div>
               </div>
-            </>
+            
           ) : (
             <div className="flex text-sm py-3 text-neutral-500 gap-1 dark:text-neutral-300">
               <CalendarDaysIcon className="w-4 h-4 dark:text-white" />

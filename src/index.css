@@ -25,7 +25,7 @@
 }
 
 .dark {
-  @apply bg-slate-800 text-zinc-50;
+  @apply bg-gray-700 text-zinc-50;
 }
 
 .dark h2 {

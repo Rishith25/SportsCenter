@@ -5,19 +5,16 @@ import AccountLayout from "../layouts/account";
 // import ProtectedRoute from "./ProtectedRoute"
 import Signin from "../pages/signin";
 import Signup from "../pages/signup";
-import Dashboard from "../pages/dashboard";
 import Profile from "../pages/profile";
 import Settings from "../pages/settings";
 import Preferences from "../pages/preferences";
 import Logout from "../pages/logout";
 import Articles from "../pages/articles";
 import Matches from "../pages/matches";
-import ArticleContainer from "../pages/articles/ArticleContainer";
 import ArticleDetails from "../pages/articles_details/ArticleDetails";
-import MatchesContainer from "../pages/matches/MatcheContainer";
 import MatchDetails from "../pages/match_details/MatchDetails";
-import ArticleDetailsContainer from "../pages/articles_details/ArticleDetailsContainer";
-import NewPreferences from "../pages/preferences/NewPreferences";
+import ChangePasswordIndex from "../pages/changepassword";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -68,12 +65,20 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+      // {
+      //   path: "settings",
+      //   element: <Settings />,
+      // },
       {
-        path: "settings",
-        element: <Settings />,
-      },
+        path: "changePassword",
+        element: <ChangePasswordIndex />
+      }
     ],
   },
+  {
+    path: "*",
+    element: <NotFound />
+  }
 ]);
 
 export default router;

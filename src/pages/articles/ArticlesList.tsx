@@ -64,8 +64,8 @@ const ArticlesList: React.FC = () => {
             onClick={() => handleSportClick({ id: 0, name: "Trending" })}
             className={`mr-4 px-3 p-2 rounded-full ${
               selectedSport.id === 0
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-black"
+                ? "bg-blue-600 text-white dark:bg-gray-700"
+                : "bg-gray-200 text-black dark:bg-blue-600"
             }`}
           >
             Trending

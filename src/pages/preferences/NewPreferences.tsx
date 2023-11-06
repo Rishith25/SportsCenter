@@ -16,18 +16,23 @@ import { fetchTeams } from "../../context/teams/actions";
 import { useTeamsDispatch, useTeamsState } from "../../context/teams/context";
 import { usePreferencesState } from "../../context/preferences/context";
 import { BellIcon } from "@heroicons/react/24/outline";
+import { useArticlesDispatch, useArticlesState } from "../../context/articles/context";
+import { fetchArticles } from "../../context/articles/actions";
 const NewPreferences = () => {
   const sportState: any = useSportsState();
   const teamsState: any = useTeamsState();
+  const articlesState: any = useArticlesState();
   const preferencesState: any = usePreferencesState();
 
   const sportsDispatch = useSportsDispatch();
-  const preferencesDispatch = usePreferencesDispatch();
   const teamsDispatch = useTeamsDispatch();
+  const articlesDispatch = useArticlesDispatch()
+  const preferencesDispatch = usePreferencesDispatch();
 
   useEffect(() => {
     fetchSports(sportsDispatch);
     fetchTeams(teamsDispatch);
+    fetchArticles(articlesDispatch)
     fetchPreferences(preferencesDispatch);
   }, []);
   const { sports, isLoading1, isError1, errorMessage1 } = sportState;
@@ -36,6 +41,7 @@ const NewPreferences = () => {
 
   const [selectedSport, setSelectedSport] = useState<string[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string[]>([]);
+  const [selectedArticle, setSelectedArticle] = useState<string[]>([]);
   const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
 
   let [isOpen, setIsOpen] = useState(false);
@@ -52,6 +58,7 @@ const NewPreferences = () => {
     if (preferences && preferences.sports && preferences.teams) {
       setSelectedSport(preferences.sports || []);
       setSelectedTeam(preferences.teams || []);
+      setSelectedArticle(preferences.articles || [])
     }
   }, [preferences]);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +67,7 @@ const NewPreferences = () => {
     const userPreferences = {
       sports: selectedSport,
       teams: selectedTeam,
-      favourites: null,
+      articles: selectedArticle,
     };
 
     try {
