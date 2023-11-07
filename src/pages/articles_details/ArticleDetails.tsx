@@ -50,13 +50,14 @@ const ArticleDetails: React.FC = () => {
   );
 
   const articleDetailsDispatch = useArticleDetailsDispatch();
+  
   useEffect(() => {
     articleDetails(articleDetailsDispatch, articleID);
     if (preferences && preferences.sports && preferences.teams) {
-      fetchPreferences(dispatchPreferences);
       setSelectedArticles(preferences.articles || []);
     }
-  }, []);
+    fetchPreferences(dispatchPreferences);
+  }, [articleDetailsDispatch, articleID, dispatchPreferences, preferences]);
 
   const selectedArticle = ArticleDetailsState?.articles?.find(
     (article) => `${article.id}` === articleID
@@ -66,76 +67,76 @@ const ArticleDetails: React.FC = () => {
     ArticleDetailsState?.articles.length === 0 &&
     ArticleDetailsState?.isLoading
   ) {
-    return <>Loading...</>;
+    return <span>Loading...</span>;
   }
   if (ArticleDetailsState?.isError) {
     return <>No such Project!</>;
   }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const token = localStorage.getItem("authToken") ?? "";
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const token = localStorage.getItem("authToken") ?? "";
 
-    const existingPreferences = {
-      sports: preferences.sports,
-      teams: preferences.teams,
-      articles: favouriteArticles || [],
-      matches: preferences.matches || [],
-    };
+  //   const existingPreferences = {
+  //     sports: preferences.sports,
+  //     teams: preferences.teams,
+  //     articles: favouriteArticles || [],
+  //     matches: preferences.matches || [],
+  //   };
 
-    const updatedPreferences = {
-      ...existingPreferences,
-      articles: favouriteArticles,
-    };
+  //   const updatedPreferences = {
+  //     ...existingPreferences,
+  //     articles: favouriteArticles,
+  //   };
 
-    try {
-      console.log("selectedArticle", favouriteArticles);
-      const response = await fetch(`${API_ENDPOINT}/user/preferences`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          preferences: updatedPreferences,
-        }),
-      });
+  //   try {
+  //     console.log("selectedArticle", favouriteArticles);
+  //     const response = await fetch(`${API_ENDPOINT}/user/preferences`, {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         preferences: updatedPreferences,
+  //       }),
+  //     });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Failed to save : ${errorData.message}`);
-      }
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       throw new Error(`Failed to save : ${errorData.message}`);
+  //     }
 
-      console.log("saved successfully!");
-      console.log("updatedPreferences", updatedPreferences);
-    } catch (error: any) {
-      console.error("Failed to save :", error.message);
-      toast.error("Changes failed. Please try again.", {
-        autoClose: 3000,
-      });
-    }
-    toast.success("Changes Saved successfully!", {
-      autoClose: 3000,
-    });
-  };
+  //     console.log("saved successfully!");
+  //     console.log("updatedPreferences", updatedPreferences);
+  //   } catch (error: any) {
+  //     console.error("Failed to save :", error.message);
+  //     toast.error("Changes failed. Please try again.", {
+  //       autoClose: 3000,
+  //     });
+  //   }
+  //   toast.success("Changes Saved successfully!", {
+  //     autoClose: 3000,
+  //   });
+  // };
 
-  const handleToggleFavorite = (id: number) => {
-    if (isAuthenticated) {
-      const isSaved = favouriteArticles.includes(id);
-      if (isSaved) {
-        // The article is already in favorites, so remove it by its ID
-        const updatedArticleIds = favouriteArticles.filter(
-          (articleId: number) => articleId !== id
-        );
-        setSelectedArticles(updatedArticleIds);
-        console.log("Removed from favorites", updatedArticleIds);
-      } else {
-        // The article is not in favorites, so add it by its ID
-        setSelectedArticles([...favouriteArticles, id]);
-        console.log("Added to favorites", [...favouriteArticles, id]);
-      }
-    }
-  };
+  // const handleToggleFavorite = (id: number) => {
+  //   if (isAuthenticated) {
+  //     const isSaved = favouriteArticles.includes(id);
+  //     if (isSaved) {
+  //       // The article is already in favorites, so remove it by its ID
+  //       const updatedArticleIds = favouriteArticles.filter(
+  //         (articleId: number) => articleId !== id
+  //       );
+  //       setSelectedArticles(updatedArticleIds);
+  //       console.log("Removed from favorites", updatedArticleIds);
+  //     } else {
+  //       // The article is not in favorites, so add it by its ID
+  //       setSelectedArticles([...favouriteArticles, id]);
+  //       console.log("Added to favorites", [...favouriteArticles, id]);
+  //     }
+  //   }
+  // };
 
   return (
     <>
@@ -195,7 +196,7 @@ const ArticleDetails: React.FC = () => {
                         </svg>
                       </button>
                     </div>
-                    {isAuthenticated ? (
+                    {/* {isAuthenticated ? (
                       <div className="flex">
                         <form onSubmit={handleSubmit}>
                           {isAuthenticated ? (
@@ -238,7 +239,7 @@ const ArticleDetails: React.FC = () => {
                           ) : null}
                         </form>
                       </div>
-                    ) : null}
+                    ) : null} */}
                     <div className="mt-2">
                       <p className="flex items-center text-sm text-gray-600 dark:text-gray-400">
                         <CalendarDaysIcon className="w-4 h-4 dark:text-white" />
@@ -259,9 +260,6 @@ const ArticleDetails: React.FC = () => {
                         <span className="font-bold">Content:</span>{" "}
                         {selectedArticle?.content}
                       </p>
-                      {/* <h3 className="text-lg font-medium mt-4 text-indigo-600 dark:text-indigo-300">
-                      Teams:
-                    </h3> */}
                       {selectedArticle?.teams &&
                         selectedArticle.teams.length > 0 && (
                           <div className="flex space-x-2">

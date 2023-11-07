@@ -12,12 +12,12 @@ import { Link } from "react-router-dom";
 const userNavigation = [
   { name: "Profile", href: "#" },
   { name: "Sign out", href: "/logout" },
-  { name: "Change Password", href: "/account/changePassword"}
+  { name: "Change Password", href: "/account/changePassword" },
 ];
 
 const navigation: any[] = [
-  // { name: "Dashboard", href: "/account", current: true },
-  // { name: "Team", href: "/account/team", current: false },
+  { name: "Dashboard", href: "/account", current: true },
+  // { name: "Favorites", href: "/account/favorites", current: false },
   // { name: "Scores", href: "/account/matches", current: false },
   // { name: "News", href: "/account/news", current: false },
 ];
@@ -65,8 +65,8 @@ export default function Appbar() {
                     <img className="h-14 w-40" src={Logo} alt="Your Company" />
                   </a>
                 </div>
-                {/* <div className="hidden sm:ml-6 sm:block">
-                  <div className="flex space-x-4">
+                <div className="hidden sm:ml-6 sm:block">
+                  <div className="flex space-x-4 py-2">
                     {navigation.map((item) => (
                       <a
                         key={item.name}
@@ -82,8 +82,17 @@ export default function Appbar() {
                         {item.name}
                       </a>
                     ))}
+                    {isAuthenticated ? (
+                      <a
+                        key="Favorites"
+                        href="/favorites"
+                        className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                      >
+                        Favorites
+                      </a>
+                    ) : null}
                   </div>
-                </div> */}
+                </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 gap-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="py-16">
@@ -188,14 +197,14 @@ export default function Appbar() {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                              to="changePassword"
-                              className={classNames(
-                                "block px-4 py-2 text-sm text-gray-700",
-                                { "bg-gray-100": active }
-                              )}
-                            >
-                              Change Password
-                            </Link>
+                                to="changePassword"
+                                className={classNames(
+                                  "block px-4 py-2 text-sm text-gray-700"
+                                  // { "bg-gray-100": active }
+                                )}
+                              >
+                                Change Password
+                              </Link>
                             )}
                           </Menu.Item>
                         </>

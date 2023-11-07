@@ -35,6 +35,7 @@ const NewPreferences = () => {
     fetchArticles(articlesDispatch)
     fetchPreferences(preferencesDispatch);
   }, []);
+  
   const { sports, isLoading1, isError1, errorMessage1 } = sportState;
   const { teams, isLoading2, isError2, errorMessage2 } = teamsState;
   const { preferences, isLoading3, isError3, errorMessage3 } = preferencesState;

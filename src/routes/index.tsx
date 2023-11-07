@@ -6,7 +6,7 @@ import AccountLayout from "../layouts/account";
 import Signin from "../pages/signin";
 import Signup from "../pages/signup";
 import Profile from "../pages/profile";
-import Settings from "../pages/settings";
+// import Settings from "../pages/settings";
 import Preferences from "../pages/preferences";
 import Logout from "../pages/logout";
 import Articles from "../pages/articles";
@@ -15,6 +15,8 @@ import ArticleDetails from "../pages/articles_details/ArticleDetails";
 import MatchDetails from "../pages/match_details/MatchDetails";
 import ChangePasswordIndex from "../pages/changepassword";
 import NotFound from "../pages/NotFound";
+import FavoritesIndex from "../pages/favorites";
+import ArticleDetailsIndex from "../pages/articles_details";
 
 const router = createBrowserRouter([
   {
@@ -59,26 +61,38 @@ const router = createBrowserRouter([
       },
       {
         path: "preferences",
-        element: <Preferences />
+        element: <Preferences />,
       },
       {
         path: "profile",
         element: <Profile />,
       },
-      // {
-      //   path: "settings",
-      //   element: <Settings />,
-      // },
+
       {
         path: "changePassword",
-        element: <ChangePasswordIndex />
-      }
+        element: <ChangePasswordIndex />,
+      },
+    ],
+  },
+  {
+    path: "favorites",
+    element: <FavoritesIndex />,
+    children: [
+      {
+        path: "news",
+        children: [
+          {
+            path: ":articleID",
+            element: <ArticleDetailsIndex />,
+          },
+        ],
+      },
     ],
   },
   {
     path: "*",
-    element: <NotFound />
-  }
+    element: <NotFound />,
+  },
 ]);
 
 export default router;
