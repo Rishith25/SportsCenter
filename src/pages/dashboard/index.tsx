@@ -1,10 +1,29 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import Matches from "../matches";
 import Articles from "../articles";
 import Filter from "../filter";
 import ErrorBoundary from "../../components/ErrorBoundary";
+import { fetchArticles } from "../../context/articles/actions";
+import { useArticlesDispatch } from "../../context/articles/context";
+import { fetchPreferences } from "../../context/preferences/actions";
+import { usePreferencesDispatch } from "../../context/preferences/context";
+import { fetchSports } from "../../context/sports/actions";
+import { useSportsDispatch } from "../../context/sports/context";
+import { fetchTeams } from "../../context/teams/actions";
+import { useTeamsDispatch } from "../../context/teams/context";
 
 const Dashboard: React.FC = () => {
+  const sportsDispatch = useSportsDispatch();
+  const teamsDispatch = useTeamsDispatch();
+  const articlesDispatch = useArticlesDispatch()
+  const preferencesDispatch = usePreferencesDispatch();
+
+  useEffect(() => {
+    fetchSports(sportsDispatch);
+    fetchTeams(teamsDispatch);
+    fetchArticles(articlesDispatch)
+    fetchPreferences(preferencesDispatch);
+  }, []);
   return (
     <div className=" min-h-screen">
       <div className="bg-white p-4 shadow rounded-lg mb-4">

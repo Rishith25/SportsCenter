@@ -19,6 +19,7 @@ import {
 } from "../../context/preferences/context";
 import { toast } from "react-toastify";
 import { API_ENDPOINT } from "../../config/constants";
+import { fetchPreferences } from "../../context/preferences/actions";
 
 export default function ArticlesListItems({ selectedSport }: any) {
   const isAuthenticated = !!localStorage.getItem("authToken");
@@ -98,11 +99,12 @@ export default function ArticlesListItems({ selectedSport }: any) {
   );
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  // useEffect(() => {
-  //   if (preferences && preferences.sports && preferences.teams) {
-  //     setSelectedArticles(preferences.articles || []);
-  //   }
-  // }, [preferences]);
+  useEffect(() => {
+    if (preferences && preferences.sports && preferences.teams) {
+      setSelectedArticles(preferences.articles || []);
+    }
+    fetchPreferences(dispatchPreferences);
+  }, []);
 
   
 
