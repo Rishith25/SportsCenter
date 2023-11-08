@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
 import { useMatchesState } from "../../context/matches/context";
@@ -23,14 +24,13 @@ export default function MatchesListItems() {
   if (preferences && preferences.matches) {
     initialSelectedMatches = preferences.articles || [];
   }
-  const [favouriteMatches, setSelectedMatches] = useState(initialSelectedMatches);
+  let [favouriteMatches, setSelectedMatches] = useState(initialSelectedMatches);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (preferences && preferences.sports && preferences.teams) {
       setSelectedMatches(preferences.matches || []);
     }
-    fetchPreferences(dispatchPreferences);
   }, [dispatchPreferences, preferences]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,8 +40,8 @@ export default function MatchesListItems() {
     const existingPreferences = {
       sports: preferences.sports,
       teams: preferences.teams,
-      articles: preferences.articles,
-      matches: favouriteMatches,
+      articles: preferences.articles || [],
+      matches: favouriteMatches || [],
     };
 
     const updatedPreferences = {

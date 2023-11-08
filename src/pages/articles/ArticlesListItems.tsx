@@ -102,9 +102,9 @@ export default function ArticlesListItems({ selectedSport }: any) {
   useEffect(() => {
     if (preferences && preferences.sports && preferences.teams) {
       setSelectedArticles(preferences.articles || []);
+      // fetchPreferences(dispatchPreferences);
     }
-    fetchPreferences(dispatchPreferences);
-  }, []);
+  }, [dispatchPreferences, preferences]);
 
   
 

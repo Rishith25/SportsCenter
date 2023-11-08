@@ -16,33 +16,47 @@ import { fetchTeams } from "../../context/teams/actions";
 import { useTeamsDispatch, useTeamsState } from "../../context/teams/context";
 import { usePreferencesState } from "../../context/preferences/context";
 import { BellIcon } from "@heroicons/react/24/outline";
-import { useArticlesDispatch, useArticlesState } from "../../context/articles/context";
+import {
+  useArticlesDispatch,
+  useArticlesState,
+} from "../../context/articles/context";
 import { fetchArticles } from "../../context/articles/actions";
+import {
+  useMatchesDispatch,
+  useMatchesState,
+} from "../../context/matches/context";
+import { fetchMatches } from "../../context/matches/actions";
+
 const NewPreferences = () => {
   const sportState: any = useSportsState();
   const teamsState: any = useTeamsState();
   const articlesState: any = useArticlesState();
   const preferencesState: any = usePreferencesState();
+  const matchesState: any = useMatchesState();
 
   const sportsDispatch = useSportsDispatch();
   const teamsDispatch = useTeamsDispatch();
-  const articlesDispatch = useArticlesDispatch()
+  const articlesDispatch = useArticlesDispatch();
   const preferencesDispatch = usePreferencesDispatch();
+  const matchesDispatch = useMatchesDispatch();
 
   useEffect(() => {
     fetchSports(sportsDispatch);
     fetchTeams(teamsDispatch);
-    fetchArticles(articlesDispatch)
+    fetchArticles(articlesDispatch);
+    fetchMatches(matchesDispatch);
     fetchPreferences(preferencesDispatch);
   }, []);
-  
+
   const { sports, isLoading1, isError1, errorMessage1 } = sportState;
   const { teams, isLoading2, isError2, errorMessage2 } = teamsState;
-  const { preferences, isLoading3, isError3, errorMessage3 } = preferencesState;
+  const { preferences, isLoading4, isError4, errorMessage4 } = preferencesState;
+  const { matches, isLoading3, isError3, errorMessage3 } = matchesState;
 
   const [selectedSport, setSelectedSport] = useState<string[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<string[]>([]);
   const [selectedArticle, setSelectedArticle] = useState<string[]>([]);
+  const [selectedMatch, setSelectedMatch] = useState<string[]>([]);
   const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
 
   let [isOpen, setIsOpen] = useState(false);
@@ -59,16 +73,19 @@ const NewPreferences = () => {
     if (preferences && preferences.sports && preferences.teams) {
       setSelectedSport(preferences.sports || []);
       setSelectedTeam(preferences.teams || []);
-      setSelectedArticle(preferences.articles || [])
+      setSelectedArticle(preferences.articles || []);
+      setSelectedMatch(preferences.matches || []);
     }
   }, [preferences]);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const token = localStorage.getItem("authToken") ?? "";
+
     const userPreferences = {
       sports: selectedSport,
       teams: selectedTeam,
       articles: selectedArticle,
+      matches: selectedMatch,
     };
 
     try {
@@ -88,7 +105,8 @@ const NewPreferences = () => {
       }
       console.log("Preferences updated successfully!");
       console.log("selectedSports", userPreferences);
-      window.location.reload();
+      // window.location.reload();
+      fetchPreferences(preferencesDispatch);
     } catch (error: any) {
       console.error("Failed to update preferences:", error.message);
     }

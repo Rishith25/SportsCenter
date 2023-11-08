@@ -6,7 +6,7 @@ import { usePreferencesDispatch } from "../../context/preferences/context";
 import { fetchPreferences } from "../../context/preferences/actions";
 import { useSportsDispatch } from "../../context/sports/context";
 import { fetchSports } from "../../context/sports/actions";
-import FavouriteListItems from "./FavoritesLstItems";
+import FavouriteListItems from "./FavoritesListItems";
 import { fetchMatches } from "../../context/matches/actions";
 import { useMatchesDispatch } from "../../context/matches/context";
 
