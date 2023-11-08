@@ -8,7 +8,10 @@ Welcome to my Sports-Center React Application Repository. This project is dedica
 
 ## Table of Contents
 - [Features](#features)
-
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Customization](#customization)
 
 ## Features
 
