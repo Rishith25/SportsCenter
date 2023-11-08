@@ -75,8 +75,8 @@ export default function ArticlesListItems({ selectedSport }: any) {
     return <span>Loading...</span>;
   }
 
-  if (filterArticles.length == 0) {
-    return <span>No Articles found</span>;
+  if (filterArticles.length == 0 && isLoading) {
+    return <div><span>No Articles found</span>;</div>
   }
 
   if (isError) {
