@@ -18,6 +18,7 @@ import NotFound from "../pages/NotFound";
 import FavoritesIndex from "../pages/favorites";
 import ArticleDetailsIndex from "../pages/articles_details";
 import ProfileIndex from "../pages/profile";
+import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -61,23 +62,31 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "preferences",
-        element: <Preferences />,
-      },
-      {
         path: "profile",
-        element: <ProfileIndex />,
+        element: (
+          <ProtectedRoute>
+            <ProfileIndex />
+          </ProtectedRoute>
+        ),
       },
 
       {
         path: "changePassword",
-        element: <ChangePasswordIndex />,
+        element: (
+          <ProtectedRoute>
+            <ChangePasswordIndex />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
   {
     path: "favorites",
-    element: <FavoritesIndex />,
+    element: (
+      <ProtectedRoute>
+        <FavoritesIndex />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "news",

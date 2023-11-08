@@ -32,15 +32,12 @@ const ArticlesList: React.FC = () => {
   const preferencesDispatch = usePreferencesDispatch();
 
   const { sports, isLoading1, isError1, errorMessage1 } = sportState;
-  const { teams, isLoading2, isError2, errorMessage2 } = teamsState;
-  const { articles, isLoading3, isError3, errorMessage3 } = articlesState;
   const { preferences, isLoading4, isError4, errorMessage4 } = preferencesState;
 
   useEffect(() => {
     fetchSports(sportsDispatch);
     fetchPreferences(preferencesDispatch);
   }, [sportsDispatch, preferencesDispatch]);
-  // console.log(sports);
   const [selectedSport, setSelectedSport] = useState<any | null>({
     id: 0,
     name: "Trending",
@@ -64,8 +61,8 @@ const ArticlesList: React.FC = () => {
             onClick={() => handleSportClick({ id: 0, name: "Trending" })}
             className={`mr-4 px-3 p-2 rounded-full ${
               selectedSport.id === 0
-                ? "bg-blue-600 text-white dark:bg-gray-700"
-                : "bg-gray-200 text-black dark:bg-blue-600"
+                ? "bg-blue-600 text-white dark:bg-blue-700 dark:text-white"
+                : "bg-gray-200 text-black dark:bg-gray-500 dark:text-white"
             }`}
           >
             Trending
@@ -82,8 +79,8 @@ const ArticlesList: React.FC = () => {
                       onClick={() => handleSportClick(sport)}
                       className={`mr-4 px-4 p-2 rounded-full ${
                         selectedSport === sport
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-200 text-black"
+                          ? "bg-blue-600 text-white dark:bg-blue-700 dark:text-white"
+                          : "bg-gray-200 text-black dark:bg-gray-500 dark:text-white"
                       }`}
                     >
                       {sport.name}

@@ -19,7 +19,6 @@ import {
 } from "../../context/preferences/context";
 import { toast } from "react-toastify";
 import { API_ENDPOINT } from "../../config/constants";
-import { fetchPreferences } from "../../context/preferences/actions";
 
 export default function ArticlesListItems({ selectedSport }: any) {
   const isAuthenticated = !!localStorage.getItem("authToken");
@@ -36,7 +35,6 @@ export default function ArticlesListItems({ selectedSport }: any) {
 
   const { articles, isLoading, isError, errorMessage } = Articlesstate;
 
-  const { sports, isLoading1, isError1, errorMessage1 } = Sportsstate;
 
   const { preferences, isLoading2, isError2, errorMessage2 } = Preferencesstate;
 
@@ -85,28 +83,19 @@ export default function ArticlesListItems({ selectedSport }: any) {
     return <span>{errorMessage}</span>;
   }
 
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  
   let initialSelectedArticles = [];
   if (preferences && preferences.articles) {
-    initialSelectedArticles = preferences.articles || []
+    initialSelectedArticles = preferences.articles || [];
   }
   let [favouriteArticles, setSelectedArticles] = useState(
     initialSelectedArticles
   );
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (preferences && preferences.sports && preferences.teams) {
       setSelectedArticles(preferences.articles || []);
-      // fetchPreferences(dispatchPreferences);
     }
   }, [dispatchPreferences, preferences]);
-
-  
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

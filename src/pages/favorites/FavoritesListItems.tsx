@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useArticlesState } from "../../context/articles/context";
 import { Link } from "react-router-dom";
 import {
@@ -12,7 +12,6 @@ import {
 import { useSportsState } from "../../context/sports/context";
 import { useMatchesState } from "../../context/matches/context";
 import { API_ENDPOINT } from "../../config/constants";
-import { LocationMarkerIcon, RefreshIcon } from "@heroicons/react/outline";
 import {
   CalendarDaysIcon,
   MapPinIcon,
@@ -59,23 +58,21 @@ export default function FavouriteListItems() {
 
   let initialSelectedArticles = [];
   if (preferences && preferences.articles) {
-    initialSelectedArticles = preferences.articles || []
+    initialSelectedArticles = preferences.articles || [];
   }
   let [favouriteArticles, setSelectedArticles] = useState(
     initialSelectedArticles
   );
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     if (preferences && preferences.sports && preferences.teams) {
       setSelectedArticles(preferences.articles || []);
-      // fetchPreferences(dispatchPreferences);
     }
   }, [dispatchPreferences, preferences]);
 
-  
-
-  const handleSubmitArticle = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitArticle = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
     const token = localStorage.getItem("authToken") ?? "";
 
@@ -132,6 +129,7 @@ export default function FavouriteListItems() {
         );
         setSelectedArticles(updatedArticleIds);
         console.log("Removed from favorites", updatedArticleIds);
+        window.location.reload( )
       } else {
         // The article is not in favorites, so add it by its ID
         setSelectedArticles([...favouriteArticles, id]);
@@ -152,8 +150,6 @@ export default function FavouriteListItems() {
     });
     console.log(filteredMatches);
   }
-
-  
 
   let initialSelectedMatches = [];
   if (preferences && preferences.matches) {
@@ -227,6 +223,7 @@ export default function FavouriteListItems() {
         );
         setSelectedMatches(updatedArticleIds);
         console.log("Removed from favorites", updatedArticleIds);
+        window.location.reload();
       } else {
         // The article is not in favorites, so add it by its ID
         setSelectedMatches([...favouriteMatches, id]);
@@ -238,7 +235,7 @@ export default function FavouriteListItems() {
   return (
     <>
       <div
-        className="flex flex overflow-x-auto gap-2 pb-1 rounded-l-md py-2"
+        className="flex overflow-x-auto gap-2 pb-1 rounded-l-md py-2"
         style={{ width: "100%" }}
       >
         <div className="border p-3 rounded-md">
@@ -254,10 +251,9 @@ export default function FavouriteListItems() {
               </div>
             </div>
           ) : (
-            <div className="flex overflow-x-auto gap-2 pb-1 rounded-l-md py-2">
-              <div className="overflow-y-auto max-h-[470px]">
+            <div className="gap-2 rounded-l-md">
+              <div className="flex flex-row overflow-x-auto max-w-full gap-2 rounded-l-md py-2">
                 {filteredMatches
-                  // .filter((match: any) => match.isRunning)
                   .map((match: any) => (
                     <div
                       key={match.id}
@@ -320,11 +316,12 @@ export default function FavouriteListItems() {
                     </div>
                   ))}
               </div>
+              <br />
             </div>
           )}
         </div>
       </div>
-
+      <br />
       {isLoading ? (
         <div>Loading...</div>
       ) : filteredArticles.length === 0 ? (
@@ -365,7 +362,9 @@ export default function FavouriteListItems() {
                                 value={article.id}
                                 data-article-id={article.id}
                                 type="submit"
-                                onClick={() => handleToggleFavoriteArticle(article.id)}
+                                onClick={() =>
+                                  handleToggleFavoriteArticle(article.id)
+                                }
                               >
                                 {favouriteArticles.includes(article.id) ? (
                                   <svg

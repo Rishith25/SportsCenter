@@ -25,7 +25,7 @@
 }
 
 .dark {
-  @apply bg-gray-700 text-zinc-50;
+  @apply bg-gray-800 text-zinc-500;
 }
 
 .dark h2 {
@@ -54,7 +54,7 @@
 .dark .input {
   background-color: #455a64; /* Dark gray background for input fields */
   color: #cfd8dc; /* Light gray text color for input fields */
-  border: 1px solid #546e7a; /* Border color for input fields */
+  border: 1px solid #546e7a; /*Border color for input fields */
 }
 /* a {
   font-weight: 500;

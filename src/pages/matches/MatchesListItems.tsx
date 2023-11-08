@@ -132,7 +132,7 @@ export default function MatchesListItems() {
             <div className="">
               {match.isRunning && <ScoreCard matchID={match.id} />}
               {isAuthenticated ? (
-                <div className="flex justify-end ">
+                <div className="flex justify-end">
                   <form onSubmit={handleSubmit}>
                     {isAuthenticated ? (
                       <button
@@ -178,7 +178,6 @@ export default function MatchesListItems() {
         .filter((match: any) => !match.isRunning)
         .slice(0, 5)
         .map((match: any) => (
-          // <Link key={match.id} to={`${match.id}`}>
           <div
             key={match.id}
             className="bg-white w-96 h-48 border border-gray-300 rounded-lg shadow-md hover:shadow-lg dark:bg-gray-800 dark:border-gray-700 dark:hover:shadow-lg p-2 py-3 relative"
