@@ -7,16 +7,20 @@ import { fetchPreferences } from "../../context/preferences/actions";
 import { useSportsDispatch } from "../../context/sports/context";
 import { fetchSports } from "../../context/sports/actions";
 import FavouriteListItems from "./FavoritesLstItems";
+import { fetchMatches } from "../../context/matches/actions";
+import { useMatchesDispatch } from "../../context/matches/context";
 
 const FavoritesList = () => {
   const articleDispatch = useArticlesDispatch();
   const sportsDispatch = useSportsDispatch();
   const preferencesDispatch = usePreferencesDispatch();
+  const matchesDispatch = useMatchesDispatch()
   useEffect(() => {
     fetchArticles(articleDispatch);
     fetchSports(sportsDispatch);
     fetchPreferences(preferencesDispatch);
-  }, [articleDispatch, sportsDispatch, preferencesDispatch]);
+    fetchMatches(matchesDispatch)
+  }, [articleDispatch, sportsDispatch, preferencesDispatch, matchesDispatch]);
   return <FavouriteListItems />;
 };
 

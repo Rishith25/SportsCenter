@@ -17,6 +17,7 @@ import ChangePasswordIndex from "../pages/changepassword";
 import NotFound from "../pages/NotFound";
 import FavoritesIndex from "../pages/favorites";
 import ArticleDetailsIndex from "../pages/articles_details";
+import ProfileIndex from "../pages/profile";
 
 const router = createBrowserRouter([
   {
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: <ProfileIndex />,
       },
 
       {
@@ -86,6 +87,20 @@ const router = createBrowserRouter([
             element: <ArticleDetailsIndex />,
           },
         ],
+      },
+      {
+        path: "matches",
+        children: [
+          { index: true, element: <Matches /> },
+          {
+            path: ":matchID",
+            children: [{ index: true, element: <MatchDetails /> }],
+          },
+        ],
+      },
+      {
+        path: "changePassword",
+        element: <ChangePasswordIndex />,
       },
     ],
   },

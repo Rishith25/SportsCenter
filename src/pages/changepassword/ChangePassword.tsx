@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { API_ENDPOINT } from "../../config/constants";
 import { useContext } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import { Toaster } from "react-hot-toast";
 import { ThemeContext } from "../../context/theme";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type Inputs = {
   current_password: string;
@@ -53,13 +54,17 @@ export default function ChangePassword() {
         setloading(false);
 
         if (response.ok) {
-          //   successNotification("Password updated successfully");
+          toast.success("Password changed successfully!", {
+            autoClose: 3000,
+          });
           closeModal();
         }
-        const Rdata = await response.json();
-        if (Rdata.status === "error") {
-          //   errorNotification(Rdata.message);
-        }
+        const Response = await response.json();
+        // if (Response.status === "error") {
+        //   toast.error("Password change failed. Please try again.", {
+        //     autoClose: 3000,
+        //   });
+        // }
       } catch (error) {
         console.log("Error while changing password:", error);
         setError(null);
@@ -123,7 +128,7 @@ export default function ChangePassword() {
                           {...register("current_password", {
                             required: true,
                           })}
-                          className="border border-black p-2 w-full rounded bg-white"
+                          className="border border-black p-2 w-full rounded bg-white text-black"
                         />
                         {errors.current_password && (
                           <span className="error text-red-500 text-xs">
@@ -144,7 +149,7 @@ export default function ChangePassword() {
                           type="password"
                           id="newPassword"
                           {...register("new_password", { required: true })}
-                          className="border border-black p-2 w-full rounded bg-white"
+                          className="border border-black p-2 w-full rounded bg-white text-black"
                         />
                         {errors.new_password && (
                           <span className="error text-red-500 text-xs">
@@ -180,3 +185,5 @@ export default function ChangePassword() {
     </>
   );
 }
+
+
