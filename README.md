@@ -101,6 +101,6 @@ You can customize your sports preferences and save favorites in the app:
 5. **Change Password**:
    - In the profile settings, you can change your account password for improved security.
 
-Checkout the deployed website on [Sports-Center](https://sports-center-rishith.netlify.app/).
+Checkout the deployed website on [Sports-Center](https://sports-center-rishith25.netlify.app/).
 
 Video Demo [Video](https://www.loom.com/share/c689f20ae93743ae8be2b13aea5134d6?sid=604e7575-3111-4c66-a4ea-03161112f5f8).
